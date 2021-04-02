@@ -23,21 +23,21 @@ Date::Date(const char * date = "01/01/00")
 	int year = ((int)date[6] - '0') * 10 + (int)date[7] - '0' + 2000;
 
 
-	//Получение года
+	//ГЏГ®Г«ГіГ·ГҐГ­ГЁГҐ ГЈГ®Г¤Г 
 	for (int i = 2; i < 4; i++)
 	{
 		this->date[i] = date[i + 4];
 	}
 
 
-	//Получение месяца
+	//ГЏГ®Г«ГіГ·ГҐГ­ГЁГҐ Г¬ГҐГ±ГїГ¶Г 
 	for (int i = 5; i < 7; i++)
 	{
 		this->date[i] = date[i - 5];
 	}
 
 
-	//Получение дня
+	//ГЏГ®Г«ГіГ·ГҐГ­ГЁГҐ Г¤Г­Гї
 	for (int i = 8; i < 10; i++)
 	{
 		this->date[i] = date[i - 5];
@@ -52,7 +52,7 @@ Date::Date(const char * date = "01/01/00")
 Date Date::TodayDate()
 {
 
-	//Получение системного времени
+	//ГЏГ®Г«ГіГ·ГҐГ­ГЁГҐ Г±ГЁГ±ГІГҐГ¬Г­Г®ГЈГ® ГўГ°ГҐГ¬ГҐГ­ГЁ
 	time_t seconds = time(NULL);
 	tm* timeinfo = localtime(&seconds);
 	int day = timeinfo->tm_mday;
@@ -60,24 +60,24 @@ Date Date::TodayDate()
 	int year = timeinfo->tm_year + 1900;
 
 	Date n;
-	// Дата формата YYYY-MM-DD
+	// Г„Г ГІГ  ГґГ®Г°Г¬Г ГІГ  YYYY-MM-DD
 	n.date = "0000-00-00";
 
-	//Ввод года
+	//Г‚ГўГ®Г¤ ГЈГ®Г¤Г 
 	for (int i = 0; i < 4; i++)
 	{
 		n.date[i] = (char)(year / (int)pow(10, 3 - i) % 10) + '0';
 	}
 
 
-	//Ввод месяца
+	//Г‚ГўГ®Г¤ Г¬ГҐГ±ГїГ¶Г 
 	for (int i = 5; i < 7; i++)
 	{
 		n.date[i] = (char)(month / (int)pow(10, 6 - i) % 10) + '0';
 	}
 
 
-	//Ввод дня
+	//Г‚ГўГ®Г¤ Г¤Г­Гї
 	for (int i = 8; i < 10; i++)
 	{
 		n.date[i] = (char)(day / (int)pow(10, 9 - i) % 10) + '0';
@@ -128,4 +128,4 @@ bool operator==(const Date& left, Date & right)
 	return left.date == right.date;
 }
 
-
+//
