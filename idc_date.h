@@ -10,7 +10,7 @@ using namespace std;
 
 struct Date {
 
-	string date;
+	string date; // Возможно,предпочтительнее был бы const char*
 
 	Date(const char * date = "01/01/00");
 	~Date();
