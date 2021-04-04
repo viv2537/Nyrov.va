@@ -9,7 +9,6 @@
 int main()
 {
 	// Объявление потока вывода в файл 
-  // Ошибка: при выводе в файл ошибка чтения Date.date
 	ofstream ofDates("ofDates.txt");
 
 	// Объявление вектора для хранения дат
@@ -28,12 +27,12 @@ int main()
 	// Построчный вывод дат, начиная с позиции 01.01.21 и до 31.12.21
 	copy(first, last,
 		ostream_iterator<Date>(cout, "\n"));
-
+	
 	// Добавление текущей даты, определяемой классом Date, в конец вектора
 	e.insert(--e.end(), Date::TodayDate());
-
-	// Построчный вывод дат в поток ofDates - не сделано
-	copy(first, last,
+	
+	// Построчный вывод дат в поток ofDates
+	copy(e.begin(), e.end(),
 		ostream_iterator<Date>(ofDates, "\n"));
 
 	// Предупреждение закрытия консоли
