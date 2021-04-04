@@ -35,20 +35,20 @@ Date::Date(const char * date)
 	// Число дней по месяцам
 	short NumberDays[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };//отсутствует проверка високосности года
 
-	if (date != "99/99/99"|| this->date != "2099-99-99")
+	if (date != "99/99/99" || this->date != "")
 	{
 		// Проверка значения месяца
 		if (month > 12 || month == 0)
 		{
-			std::cerr << "invalid month value. Must be 1 to 12.\nDate format is MM/DD/YY\nThis value will not be read " << date << ' ' << this->date << '\n';
-			this->date = "2099-99-99";
+			std::cerr << "invalid month value. Must be 1 to 12.\nDate format is MM/DD/YY\nThis value will not be read " << '\n';
+			this->~Date();
 		}
 
 		// Проверка значения дня
 		else if (day > NumberDays[month - 1] || day == 0)
 		{
 			std::cerr << "invalid day value. Must be 1 to 28-31\nThis value will not be read " << '\n';
-			this->date = "2099-99-99";
+			this->~Date();
 		}
 
 		else
@@ -75,8 +75,9 @@ Date::Date(const char * date)
 				this->date[i] = date[i - 5];
 		}
 	}
-	else this->date = "2099-99-99";
+	else this->date = "";
 };
+
 //////////////////////////////////////////////
 //         Получение cегодняшней даты
 //////////////////////////////////////////////
@@ -159,12 +160,12 @@ istream& operator>> (std::istream &in, Date &n)
 		if (strlen(t) != 8)
 		{
 			std::cerr << "invalid date length, need 8\nThis value will not be read " << '\n';
-			n.date = "2099-99-99";
+			n.~Date();
 		}
 		else if (t[2] != '/' && t[5] != '/')
 		{
 			std::cerr << "invalid date format, need MM/DD/YY\nThis value will not be read " << '\n';
-			n.date = "2099-99-99";
+			n.~Date();
 		}
 		else
 		{
