@@ -23,27 +23,7 @@ Date::~Date()
 
 Date::Date(const char * date)
 {
-	//////////////////////////////////////////////
-	//         Перевод входной строки в ISO
-	//////////////////////////////////////////////
-
-	// Дата формата YYYY-MM-DD
-	this->date = "2000-00-00";
-
-	// Получение года
-	for (int i = 2; i < 4; i++)
-		this->date[i] = date[i + 4];
-
-
-	// Получение месяца
-	for (int i = 5; i < 7; i++)
-		this->date[i] = date[i - 5];
-
-
-	// Получение дня
-	for (int i = 8; i < 10; i++)
-		this->date[i] = date[i - 5];
-
+	
 	//////////////////////////////////////////////
 	//         Проверка корректности даты
 	//////////////////////////////////////////////
@@ -55,12 +35,12 @@ Date::Date(const char * date)
 	// Число дней по месяцам
 	short NumberDays[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };//отсутствует проверка високосности года
 
-	if (date != "99/99/99" || this->date !="2099-99-99")
+	if (date != "99/99/99")
 	{
 		// Проверка значения месяца
 		if (month > 12 || month == 0)
 		{
-			std::cerr << "invalid month value. Must be 1 to 12.\nDate format is MM/DD/YY\nThis value will not be read "<< date <<' ' << this->date << '\n';
+			std::cerr << "invalid month value. Must be 1 to 12.\nDate format is MM/DD/YY\nThis value will not be read " << date << ' ' << this->date << '\n';
 			this->date = "2099-99-99";
 		}
 
@@ -70,9 +50,33 @@ Date::Date(const char * date)
 			std::cerr << "invalid day value. Must be 1 to 28-31\nThis value will not be read " << '\n';
 			this->date = "2099-99-99";
 		}
-	}
-};
 
+		else
+		{
+			//////////////////////////////////////////////
+			//         Перевод входной строки в ISO
+			//////////////////////////////////////////////
+
+			// Дата формата YYYY-MM-DD
+			this->date = "2000-00-00";
+
+			// Получение года
+			for (int i = 2; i < 4; i++)
+				this->date[i] = date[i + 4];
+
+
+			// Получение месяца
+			for (int i = 5; i < 7; i++)
+				this->date[i] = date[i - 5];
+
+
+			// Получение дня
+			for (int i = 8; i < 10; i++)
+				this->date[i] = date[i - 5];
+		}
+	}
+	else this->date = "2099-99-99";
+};
 //////////////////////////////////////////////
 //         Получение cегодняшней даты
 //////////////////////////////////////////////
