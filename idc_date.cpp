@@ -91,12 +91,12 @@ Date Date::TodayDate()
 
 	// Получение года
 	for (int i = 0; i < 4; i++)
-		n.date[i] = (char)(timeinfo.tm_year + 1900 / (int)pow(10, 3 - i) % 10) + '0';
+		n.date[i] = (char)((timeinfo.tm_year + 1900) / (int)pow(10, 3 - i) % 10) + '0';
 
 
 	// Получение месяца
 	for (int i = 5; i < 7; i++)
-		n.date[i] = (char)(timeinfo.tm_mon + 1 / (int)pow(10, 6 - i) % 10) + '0';
+		n.date[i] = (char)((timeinfo.tm_mon + 1) / (int)pow(10, 6 - i) % 10) + '0';
 
 
 	// Получение дня
@@ -125,7 +125,7 @@ Date& Date::operator=(const char* right)
 
 ostream& operator<< (std::ostream &out, const Date &n)
 {
-	out << n.date;// при выводе через ofDates ошибка чтения n.date
+	out << n.date;
 	return out;
 }
 
