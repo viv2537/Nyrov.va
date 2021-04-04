@@ -31,6 +31,9 @@ int main()
 
 	// Добавление текущей даты, определяемой классом Date, в конец вектора
 	e.insert(--e.end(), Date::TodayDate());
+	
+	first = e.begin();
+	last = e.end();
 
 	// Построчный вывод дат в поток ofDates - не сделано
 	copy(first, last,
