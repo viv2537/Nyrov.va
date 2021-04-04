@@ -1,3 +1,4 @@
+
 //---------------------------------------------------------------------------
 #pragma hdrstop
 
@@ -28,7 +29,7 @@ Date::Date(const char * date)
 
 	// Дата формата YYYY-MM-DD
 	this->date = "2000-00-00";
-	
+
 	// Получение года
 	for (int i = 2; i < 4; i++)
 		this->date[i] = date[i + 4];
@@ -54,14 +55,22 @@ Date::Date(const char * date)
 	// Число дней по месяцам
 	short NumberDays[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };//отсутствует проверка високосности года
 
-	// проверка разделительных знаков (не особо нужна, но пусть будет)
-	if (date[2] != '/' && date[5] != '/') std::cerr << "invalid date format, need mm/dd/yy " << '\n';
+	if (date != "99/99/99" || this->date !="2099-99-99")
+	{
+		// Проверка значения месяца
+		if (month > 12 || month == 0)
+		{
+			std::cerr << "invalid month value. Must be 1 to 12.\nDate format is MM/DD/YY\nThis value will not be read "<< date <<' ' << this->date << '\n';
+			this->date = "2099-99-99";
+		}
 
-	// Проверка значения месяца
-	else if (month > 12 || month == 0) std::cerr << "invalid month value. Must be 1 to 12.\nDate format is MM/DD/YY" << '\n';
-
-	// Проверка значения дня
-	else if (day > NumberDays[month - 1] || day == 0) std::cerr << "invalid day value. Must be 1 to 28-31" << '\n';
+		// Проверка значения дня
+		else if (day > NumberDays[month - 1] || day == 0)
+		{
+			std::cerr << "invalid day value. Must be 1 to 28-31\nThis value will not be read " << '\n';
+			this->date = "2099-99-99";
+		}
+	}
 };
 
 //////////////////////////////////////////////
@@ -137,19 +146,29 @@ ostream& operator<< (std::ostream &out, const Date &n)
 istream& operator>> (std::istream &in, Date &n)
 {
 	// Чтение ввода
-	char t[9];
+	char t[50];
 	in >> t;
 
 	if (strlen(t) != 0)// Проверка на пустой ввод - подавление вывода ошибки 
 	{
 		// Проверка формата стрки ввода
-		if (strlen(t) != 8) std::cerr << "invalid date length, need 8 " << '\n';
-		else if (t[2] != '/' && t[5] != '/') std::cerr << "invalid date format, need MM/DD/YY " << '\n';
-
-		// Перевод строки ввода в ISO
-		// Снова лишний объект
-		Date RDate(t);
-		n.date = RDate.date;
+		if (strlen(t) != 8)
+		{
+			std::cerr << "invalid date length, need 8\nThis value will not be read " << '\n';
+			n.date = "2099-99-99";
+		}
+		else if (t[2] != '/' && t[5] != '/')
+		{
+			std::cerr << "invalid date format, need MM/DD/YY\nThis value will not be read " << '\n';
+			n.date = "2099-99-99";
+		}
+		else
+		{
+			// Перевод строки ввода в ISO
+			// Снова лишний объект
+			Date RDate(t);
+			n.date = RDate.date;
+		}
 	}
 
 	return in;
