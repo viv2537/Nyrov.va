@@ -14,7 +14,7 @@ Date::Date(const char * date)
 	// Проверка формата строки ввода
 	if (strlen(date) == 8)
 	{
-		if (date[2] != '/' && date[5] != '/')
+		if (date[2] != '/' || date[5] != '/')
 		{
 			std::cerr << "invalid date format, need MM/DD/YY\nThis value will not be read " << '\n';
 		}
