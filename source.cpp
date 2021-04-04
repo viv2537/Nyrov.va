@@ -23,7 +23,7 @@ int main()
 	// Удаление значений, не прошедших проверку
 	for (int i = 0; i < e.size();)
 	{
-		if (e.at(i) == "99/99/99") e.erase(e.begin()+i);
+		if (e.at(i).date == "") e.erase(e.begin()+i);
 		else i++;
 	}
 
